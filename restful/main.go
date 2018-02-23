@@ -9,9 +9,9 @@ import (
 var Db *gorm.DB
 
 type User struct {
-	ID				int
-	username		string
-	password_hash	string
+	ID               int
+	Username         string `gorm:"unique"`
+	Password_hash    string
 }
 
 func init() {
@@ -26,7 +26,7 @@ func init() {
 func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/signup", signup)
-	//mux.HandleFunc("/signin", signin)
+	mux.HandleFunc("/signin", signin)
 
 	server := &http.Server{
 		Addr: "0.0.0.0:8080",
