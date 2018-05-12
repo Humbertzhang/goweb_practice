@@ -1,0 +1,178 @@
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: A RESTful API
+
+schemes:
+  - https
+host: simple.api
+
+
+paths:
+  /register:
+    post:
+      summary: 注册API
+      description: 注册
+      parameters: 
+      - name: info
+        in: body
+        description: 注册信息
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: 注册成功
+          schema:
+            required: 
+            - uid
+            properties:
+              uid:
+                type: integer
+  
+  /login:
+    post:
+      summary: 登录API
+      description: 登录
+      parameters: 
+      - name: info
+        in: body
+        description: 登录信息
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+    
+      responses:
+        200:
+          description: 登录成功
+          schema:
+            required: 
+            - token
+            properties:
+              token:
+                type: string
+        404:
+          description: 用户不存在
+        401:
+          description: 登录失败
+  
+  
+  /article:
+    post:
+      summary: 发送文章
+      description: 发送文章
+      parameters: 
+      - name: info
+        in: body
+        description: 文章信息
+        required: true
+        schema:
+          $ref: '#/definitions/Postin'
+      responses:
+        200:
+          description: OK
+          schema:
+            required: 
+            - postid
+            properties:
+              postid:
+                type: integer
+        400:
+          description: 客户端错误
+        403:
+          description: 无权限
+        404:
+          description: 未找到用户
+  
+  /article/{postid}:
+    get:
+      summary: 获取某篇文章
+      description: 获取某篇文章
+      parameters: 
+      - name: postid
+        in: path
+        description: 文章id
+        required: true
+        type: integer
+      - name: token
+        in: header
+        description: token
+        required: true
+        type: string
+      
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Postret'
+        404:
+          description: 未找到文章
+            
+            
+  /articles/{uid}:
+    get:
+      summary: 获取某用户的所有Post
+      description: 获取某用户的所有Post
+      parameters: 
+      - name: uid
+        in: path
+        description: 用户id
+        required: true
+        type: integer
+      - name: token
+        in: header
+        description: token
+        required: true
+        type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Postret'
+        404:
+          description: 未找到用户
+        
+  
+definitions:
+  User:
+    required: 
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      passwrod:
+        type: string
+
+  Postin:
+    required: 
+      - title
+      - content
+      - uid
+    properties:
+      title:
+        type: string
+      content:
+        type: string
+      uid:
+        type: string
+        
+  Postret:
+    required: 
+      - id
+      - title
+      - content
+      - uid
+    properties:
+      id:
+        type: integer
+      title:
+        type: string
+      content:
+        type: string
+      uid:
+        type: integer
+        
