@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/jinzhu/gorm"
-	"github.com/Humbertzhang/IrisPractices/Practice1/models"
+	"github.com/Humbertzhang/goweb_practice/IrisPractices/RestfulPractice/models"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 

@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/kataras/iris"
-	"github.com/Humbertzhang/IrisPractices/Practice1/models"
+	"github.com/Humbertzhang/goweb_practice/IrisPractices/RestfulPractice/models"
 	"strconv"
 )
 
